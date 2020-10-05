@@ -539,11 +539,6 @@ bopt_process = bopt.BayesianOptimization(custom_bayesopt(dm_input).objective,
 
 # COMMAND ----------
 
-# Executing code
-bopt_process.maximize(n_iter=10, init_points=12)
-
-# COMMAND ----------
-
 # Winning model parameters:
 bopt_process.max
 
@@ -796,10 +791,6 @@ cb_model.fit(X = data,
 
 # COMMAND ----------
 
-#plot(cb_model)
-
-# COMMAND ----------
-
 # make the prediction using the resulting model
 preds_class = cb_model.predict(data, prediction_type='Class')
 preds_raw_vals = cb_model.predict(data, prediction_type='RawFormulaVal')
@@ -809,21 +800,6 @@ preds_proba = cb_model.predict(data, prediction_type='Probability')
 print("class = ", preds_class)
 print("proba = ", preds_proba)
 print("proba = ", preds_raw_vals)
-
-# COMMAND ----------
-
-import mlflow
-from catboost import CatBoostClassifier, Pool
-
-train_data = [[1, 3], [0, 4], [1, 7], [0, 3]]
-train_labels = [1, 0, 1, 1]
-
-model = CatBoostClassifier(learning_rate=0.03)
-
-model.fit(train_data,
-          train_labels,
-          verbose=False,
-          plot=True)
 
 # COMMAND ----------
 
@@ -904,8 +880,8 @@ search_spaces = {'iterations': (10, 1000),
 # COMMAND ----------
 
 # Setting up BayesSearchCV
-opt = BayesSearchCV(clf,
-                    search_spaces,
+opt = BayesSearchCV(estimator=clf, 
+                    search_spaces=search_spaces,
                     scoring=roc_auc,
                     cv=skf,
                     n_iter=10,

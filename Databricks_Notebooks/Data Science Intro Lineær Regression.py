@@ -13,6 +13,33 @@
 import numpy as np 
 import matplotlib.pyplot as plt 
 
+# observations 
+x = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) 
+y = np.array([1, 3, 2, 5, 7, 8, 8, 9, 10, 12]) 
+
+
+plt.scatter(x, y, color = "m", 
+		marker = "o", s = 30) 
+
+# plotting the regression line 
+plt.plot(x, y, color = "g") 
+
+# putting labels 
+plt.xlabel('x') 
+plt.ylabel('y') 
+
+# function to show plot 
+plt.show() 
+    
+
+# Reference: https://www.geeksforgeeks.org/linear-regression-python-implementation/
+
+
+
+# COMMAND ----------
+
+# Beregning af koefficienter ved brug af lineær regression
+
 def estimate_coef(x, y): 
 	# number of observations/points 
 	n = np.size(x) 
@@ -30,7 +57,8 @@ def estimate_coef(x, y):
 
 	return(b_0, b_1) 
 
-def plot_regression_line(x, y, b): 
+  
+  def plot_regression_line(x, y, b): 
 	# plotting the actual points as scatter plot 
 	plt.scatter(x, y, color = "m", 
 			marker = "o", s = 30) 
@@ -48,22 +76,14 @@ def plot_regression_line(x, y, b):
 	# function to show plot 
 	plt.show() 
 
-def main(): 
-	# observations 
-	x = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) 
-	y = np.array([1, 3, 2, 5, 7, 8, 8, 9, 10, 12]) 
+    
+# plotting regression line 
+plot_regression_line(x, y, b) 
 
-	# estimating coefficients 
-	b = estimate_coef(x, y) 
-	print("Estimated coefficients:\nb_0 = {} \ 
-		\nb_1 = {}".format(b[0], b[1])) 
+# COMMAND ----------
 
-	# plotting regression line 
-	plot_regression_line(x, y, b) 
+print("Estimated coefficients:\nb_0 = {} \ nb_1 = {}".format(b[0], b[1])) 
 
-if __name__ == "__main__": 
-	main() 
-# Reference: https://www.geeksforgeeks.org/linear-regression-python-implementation/
 
 # COMMAND ----------
 
