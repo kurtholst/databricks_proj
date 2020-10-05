@@ -978,3 +978,4 @@ confusion_matrix(y_true = y, y_pred = preds_class)
 
 # COMMAND ----------
 
+# Confusion matrix
