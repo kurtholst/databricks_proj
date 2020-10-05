@@ -834,6 +834,8 @@ def report_perf(optimizer, X, y, title, callbacks=None):
     y = our target
     title = a string label for the experiment
     """
+    import pandas as pd
+    import pprint
     start = time()
     if callbacks:
         optimizer.fit(X, y, callback=callbacks)
@@ -860,10 +862,8 @@ skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=0)
 
 clf = CatBoostClassifier(thread_count=2,
                          loss_function='Logloss',
-                        
                          od_type = 'Iter',
-                         verbose= True
-                        )
+                         verbose= True)
 
 # COMMAND ----------
 
@@ -871,11 +871,14 @@ clf = CatBoostClassifier(thread_count=2,
 search_spaces = {'iterations': (10, 1000),
                  'depth': (1, 8),
                  'learning_rate': (0.01, 1.0, 'log-uniform'),
+                 #'learning_rate': (0.01, 1.0),
                  'random_strength': (1e-9, 10, 'log-uniform'),
+                 #'random_strength': (1e-9, 10),
                  'bagging_temperature': (0.0, 1.0),
                  'border_count': (1, 255),
                  'l2_leaf_reg': (2, 30),
                  'scale_pos_weight':(0.01, 1.0, 'uniform')}
+                 #'scale_pos_weight':(0.01, 1.0)}
 
 # COMMAND ----------
 
@@ -897,13 +900,13 @@ opt
 
 # COMMAND ----------
 
+# Execute bayesian 
 best_params = report_perf(optimizer = opt, 
                           X = X, 
                           y = y, 
                           title = 'CatBoost', 
-                          callbacks=[VerboseCallback(100)]) # , DeadlineStopper(60*10)])
+                          callbacks=[VerboseCallback(100), DeadlineStopper(60*10)])
 
-#optimizer, X, y, title, callbacks=None
 
 # COMMAND ----------
 
@@ -920,7 +923,7 @@ best_params={'bagging_temperature': 0.41010395885331385,
  'random_strength': 3.230824361824754e-06,
  'scale_pos_weight': 0.7421091918485163}
 
-best_params['iterations']=1000
+best_params['iterations']=100
 
 # COMMAND ----------
 
@@ -951,7 +954,5 @@ from sklearn.metrics import confusion_matrix
 confusion_matrix(y_true = y, y_pred = preds_class)
 
 
-
 # COMMAND ----------
 
-# Confusion matrix
