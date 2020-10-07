@@ -5,6 +5,8 @@
 # MAGIC # Lineær Regression.
 # MAGIC 
 # MAGIC # Use Case med ½maraton og hel maraton tider.
+# MAGIC 
+# MAGIC ## Men først et simpelt eksempel uden brug af Machine Learning libraries
 
 # COMMAND ----------
 
@@ -13,16 +15,26 @@
 import numpy as np 
 import matplotlib.pyplot as plt 
 
-# observations 
+# Eksempel med data observationer 
 x = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) 
 y = np.array([1, 3, 2, 5, 7, 8, 8, 9, 10, 12]) 
+print(x)
+print(y)
+
+# Reference: https://www.geeksforgeeks.org/linear-regression-python-implementation/
+#Hvis vi kun havde to punkter kan linjens ligning findes ud fra de to koordinater:
+#(x1,y1) og (x2, y2).
+#Disse to punkter giver følgende formel for a og b i linjens ligning:
+#a=(y_2-y_1) / (x_2-x_1)
+#b=y_1-a*x_1
+#Disse kan så indsættes i linjens ligning:
+#y=a*x+b
 
 
-plt.scatter(x, y, color = "m", 
-		marker = "o", s = 30) 
+# COMMAND ----------
 
-# plotting the regression line 
-plt.plot(x, y, color = "g") 
+# Visualisering af data i koordinatsystem
+plt.scatter(x, y, color='r', linestyle='None')
 
 # putting labels 
 plt.xlabel('x') 
@@ -31,9 +43,6 @@ plt.ylabel('y')
 # function to show plot 
 plt.show() 
     
-
-# Reference: https://www.geeksforgeeks.org/linear-regression-python-implementation/
-
 
 
 # COMMAND ----------
@@ -44,10 +53,11 @@ def estimate_coef(x, y):
 	# number of observations/points 
 	n = np.size(x) 
 
-	# mean of x and y vector 
-	m_x, m_y = np.mean(x), np.mean(y) 
-
-	# calculating cross-deviation and deviation about x 
+	# mean of x and y vector
+	m_x = np.mean(x)
+	m_y = np.mean(y) 
+	
+    # calculating cross-deviation and deviation about x 
 	SS_xy = np.sum(y*x) - n*m_y*m_x 
 	SS_xx = np.sum(x*x) - n*m_x*m_x 
 
@@ -58,7 +68,7 @@ def estimate_coef(x, y):
 	return(b_0, b_1) 
 
   
-  def plot_regression_line(x, y, b): 
+def plot_regression_line(x, y, b): 
 	# plotting the actual points as scatter plot 
 	plt.scatter(x, y, color = "m", 
 			marker = "o", s = 30) 
@@ -84,6 +94,13 @@ plot_regression_line(x, y, b)
 
 print("Estimated coefficients:\nb_0 = {} \ nb_1 = {}".format(b[0], b[1])) 
 
+
+# COMMAND ----------
+
+from sklearn.linear_model import LinearRegression
+lin_reg = LinearRegression()
+x
+#lin_reg.fit(X=x, y=y)
 
 # COMMAND ----------
 
