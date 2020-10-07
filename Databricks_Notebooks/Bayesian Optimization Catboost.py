@@ -261,7 +261,7 @@ trainedforest
 # Plotting Learning Curve
 # Create CV training and test scores for various training set sizes
 from sklearn.model_selection import learning_curve
-
+import numpy as np
 X = data
 y = targets
 
@@ -324,10 +324,11 @@ print(metrics.accuracy_score(test_y, y_pred))
 
 # store the predicted probabilities for class 1
 classifier = trainedforest.fit(X, y)
-predictions = classifier.predict_proba(test_X)
+predictions_proba = classifier.predict_proba(test_X)
+predictions = classifier.predict(test_X)
 print(predictions)
 #y_pred_prob = RFC.predict_proba(data)
-
+print(test_y)
 
 # COMMAND ----------
 
