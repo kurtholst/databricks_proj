@@ -241,6 +241,7 @@ def optimize_rfc(data, targets):
 # COMMAND ----------
 
 # Random Forest Execute baysian optimization run
+
 print(Colours.green("--- Optimizing Random Forest ---"))
 optimize_rfc(data, targets)
 
